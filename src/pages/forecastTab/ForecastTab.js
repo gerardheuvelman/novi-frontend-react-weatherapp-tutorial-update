@@ -1,13 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import './ForecastTab.css';
 import axios from "axios";
+import kelvinToCelsius from "../../helpers/kelvinToCelsius";
+import createDateString from "../../helpers/createDateString";
 
 const apiKey = '15a9c6d1c16f33b78405bab2e9ed7cc2';
-
-function createDateString(timestamp) {
-    const day = new Date(timestamp * 1000);
-    return day.toLocaleDateString('nl-NL', { weekday: 'long' });
-}
 
 function ForecastTab({ coordinates }) {
     const [forecasts, setForecasts] = useState([]);
@@ -55,9 +52,9 @@ function ForecastTab({ coordinates }) {
 
                     <section className="forecast-weather">
             <span>
-              {singleForecast.main.temp}&deg; C
+                {kelvinToCelsius(singleForecast.main.temp)}
             </span>
-                        <span className="weather-description">
+            <span className="weather-description">
               {singleForecast.weather[0].description}
             </span>
                     </section>
